@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Dictionary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">Color Dictionary</h1>
+  </header>
+
+  <main class="main">
+    <section class="panel-left">
+      <div class="tabs">
+        <button class="tabs__btn tabs__btn--active" data-tab="preset">Preset</button>
+        <button class="tabs__btn" data-tab="picker">Color Picker</button>
+      </div>
+
+      <div class="tab-content" id="tab-preset">
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+
+      <div class="tab-content tab-content--hidden" id="tab-picker">
+        <div class="picker-area">
+          <label class="picker-label" for="color-picker">Pick any color:</label>
+          <input type="color" id="color-picker" class="picker-input" value="#1E90FF">
+          <button class="picker-select-btn" id="picker-select-btn">Select this color</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel-right">
+      <div class="detail" id="detail">
+        <div class="detail__preview" id="detail-preview"></div>
+        <div class="detail__info">
+          <div class="detail__name" id="detail-name">Select a color</div>
+          <div class="detail__row">
+            <span class="detail__label">HEX</span>
+            <span class="detail__value" id="detail-hex">-</span>
+            <button class="copy-btn" id="copy-hex" disabled>Copy HEX</button>
+          </div>
+          <div class="detail__row">
+            <span class="detail__label">RGB</span>
+            <span class="detail__value" id="detail-rgb">-</span>
+            <button class="copy-btn" id="copy-rgb" disabled>Copy RGB</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="history-section">
+    <h2 class="history-section__title">History</h2>
+    <div class="history" id="history"></div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
