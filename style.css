@@ -86,6 +86,28 @@ body {
   display: none;
 }
 
+/* ===== Tab Description ===== */
+.tab-desc {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e5ea;
+}
+
+.tab-desc__text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #8e8e93;
+}
+
+.tab-desc__text code {
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  font-size: 12px;
+  background: #f0f0f5;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #636366;
+}
+
 /* ===== Palette Grid ===== */
 .palette-grid {
   display: grid;

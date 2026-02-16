@@ -21,6 +21,9 @@
 
       <div class="tab-content" id="tab-preset">
         <div class="palette-grid" id="palette-grid"></div>
+        <div class="tab-desc">
+          <p class="tab-desc__text">定番カラー48色から選べます。色をクリックすると右側にHEX・RGBコードが表示され、そのままコピーできます。</p>
+        </div>
       </div>
 
       <div class="tab-content tab-content--hidden" id="tab-picker">
@@ -28,6 +31,9 @@
           <label class="picker-label" for="color-picker">Pick any color:</label>
           <input type="color" id="color-picker" class="picker-input" value="#1E90FF">
           <button class="picker-select-btn" id="picker-select-btn">Select this color</button>
+        </div>
+        <div class="tab-desc">
+          <p class="tab-desc__text">カラーピッカーで自由に色を探せます。パレットを操作するとリアルタイムでプレビューが更新されます。気に入った色が見つかったら「Select this color」で確定してください。</p>
         </div>
       </div>
 
@@ -40,6 +46,9 @@
           </div>
           <p class="input-area__hint" id="input-hint">HEX (#RGB, #RRGGBB) or RGB (rgb(r, g, b)) format</p>
           <button class="picker-select-btn" id="input-select-btn" disabled>Select this color</button>
+        </div>
+        <div class="tab-desc">
+          <p class="tab-desc__text">カラーコードを直接入力して色を確認できます。HEX（例: <code>#FF0000</code>, <code>#F00</code>）やRGB（例: <code>rgb(255, 0, 0)</code>）に対応しています。入力するとリアルタイムでプレビューされ、Enterキーでも確定できます。</p>
         </div>
       </div>
     </section>
