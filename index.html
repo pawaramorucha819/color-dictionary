@@ -16,6 +16,7 @@
       <div class="tabs">
         <button class="tabs__btn tabs__btn--active" data-tab="preset">Preset</button>
         <button class="tabs__btn" data-tab="picker">Color Picker</button>
+        <button class="tabs__btn" data-tab="input">Code Input</button>
       </div>
 
       <div class="tab-content" id="tab-preset">
@@ -27,6 +28,18 @@
           <label class="picker-label" for="color-picker">Pick any color:</label>
           <input type="color" id="color-picker" class="picker-input" value="#1E90FF">
           <button class="picker-select-btn" id="picker-select-btn">Select this color</button>
+        </div>
+      </div>
+
+      <div class="tab-content tab-content--hidden" id="tab-input">
+        <div class="input-area">
+          <label class="input-area__label" for="color-code-input">Enter a color code:</label>
+          <div class="input-area__field">
+            <div class="input-area__preview" id="input-preview"></div>
+            <input type="text" id="color-code-input" class="input-area__input" placeholder="#FF0000 or rgb(255, 0, 0)" spellcheck="false" autocomplete="off">
+          </div>
+          <p class="input-area__hint" id="input-hint">HEX (#RGB, #RRGGBB) or RGB (rgb(r, g, b)) format</p>
+          <button class="picker-select-btn" id="input-select-btn" disabled>Select this color</button>
         </div>
       </div>
     </section>

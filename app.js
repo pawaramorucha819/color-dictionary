@@ -67,6 +67,10 @@ const detailHex = $("#detail-hex");
 const detailRgb = $("#detail-rgb");
 const copyHexBtn = $("#copy-hex");
 const copyRgbBtn = $("#copy-rgb");
+const colorCodeInput = $("#color-code-input");
+const inputPreview = $("#input-preview");
+const inputHint = $("#input-hint");
+const inputSelectBtn = $("#input-select-btn");
 const historyContainer = $("#history");
 const toastEl = $("#toast");
 
@@ -85,6 +89,36 @@ function rgbString(r, g, b) {
 
 function normalizeHex(hex) {
   return "#" + hex.replace("#", "").toUpperCase();
+}
+
+function parseColorCode(input) {
+  const trimmed = input.trim();
+
+  // HEX: #RGB or #RRGGBB (with or without #)
+  const hexMatch = trimmed.match(/^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/);
+  if (hexMatch) {
+    let h = hexMatch[1];
+    if (h.length === 3) {
+      h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    }
+    return "#" + h.toUpperCase();
+  }
+
+  // RGB: rgb(r, g, b) or just r, g, b
+  const rgbMatch = trimmed.match(
+    /^(?:rgb\s*\(\s*)?(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)?$/
+  );
+  if (rgbMatch) {
+    const r = parseInt(rgbMatch[1], 10);
+    const g = parseInt(rgbMatch[2], 10);
+    const b = parseInt(rgbMatch[3], 10);
+    if (r <= 255 && g <= 255 && b <= 255) {
+      const toHex = (n) => n.toString(16).padStart(2, "0").toUpperCase();
+      return "#" + toHex(r) + toHex(g) + toHex(b);
+    }
+  }
+
+  return null;
 }
 
 function findPresetName(hex) {
@@ -248,6 +282,58 @@ function initPicker() {
   });
 }
 
+// ===== Code Input =====
+function initCodeInput() {
+  const DEFAULT_HINT = "HEX (#RGB, #RRGGBB) or RGB (rgb(r, g, b)) format";
+
+  colorCodeInput.addEventListener("input", () => {
+    const value = colorCodeInput.value;
+    if (value.trim() === "") {
+      inputPreview.style.backgroundColor = "#e5e5ea";
+      inputPreview.classList.remove("input-area__preview--valid");
+      colorCodeInput.classList.remove("input-area__input--invalid");
+      inputHint.textContent = DEFAULT_HINT;
+      inputHint.classList.remove("input-area__hint--error");
+      inputSelectBtn.disabled = true;
+      return;
+    }
+
+    const parsed = parseColorCode(value);
+    if (parsed) {
+      inputPreview.style.backgroundColor = parsed;
+      inputPreview.classList.add("input-area__preview--valid");
+      colorCodeInput.classList.remove("input-area__input--invalid");
+      inputHint.textContent = DEFAULT_HINT;
+      inputHint.classList.remove("input-area__hint--error");
+      inputSelectBtn.disabled = false;
+      updateDetail(parsed);
+    } else {
+      inputPreview.style.backgroundColor = "#e5e5ea";
+      inputPreview.classList.remove("input-area__preview--valid");
+      colorCodeInput.classList.add("input-area__input--invalid");
+      inputHint.textContent = "Invalid format";
+      inputHint.classList.add("input-area__hint--error");
+      inputSelectBtn.disabled = true;
+    }
+  });
+
+  inputSelectBtn.addEventListener("click", () => {
+    const parsed = parseColorCode(colorCodeInput.value);
+    if (parsed) {
+      selectColor(parsed);
+    }
+  });
+
+  colorCodeInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const parsed = parseColorCode(colorCodeInput.value);
+      if (parsed) {
+        selectColor(parsed);
+      }
+    }
+  });
+}
+
 // ===== Copy Buttons =====
 function initCopyButtons() {
   copyHexBtn.addEventListener("click", async () => {
@@ -286,6 +372,7 @@ function init() {
   renderHistory();
   initTabs();
   initPicker();
+  initCodeInput();
   initCopyButtons();
 }
 
